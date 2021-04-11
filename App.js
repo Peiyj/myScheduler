@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, SafeAreaView} from 'react-native';
+import CourseList from './components/CourseList';
+import Course from './components/Course';
 
 const schedule = {
   "title": "CS Courses for 2018-2019", // pass to banner component
@@ -33,22 +35,6 @@ const getCourseNumber = course => (
 
 const Banner = ({title}) => (
   <Text style= {styles.bannerStyle}>{title}</Text>
-)
-
-const CourseList = ({ courses }) => (
-  <ScrollView>
-    <View style={styles.courseList}>
-      { courses.map(course => <Course key={course.id} course={ course } />) }
-    </View>
-  </ScrollView>
-)
-
-const Course = ({course}) => (
-  <TouchableOpacity style={styles.courseButton}>
-    <Text style={styles.courseText}>
-      {`CS ${getCourseNumber(course)}\n${course.meets}`}
-    </Text>
-  </TouchableOpacity>
 )
 
 const App = () => {
