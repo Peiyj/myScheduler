@@ -29,10 +29,6 @@ const schedule = {
   ]
 };
 
-// const getCourseNumber = course => (
-//   course.id.slice(1)
-// )
-
 const Banner = ({title}) => (
   <Text style={styles.bannerStyle}>{title || '[loading...]'}</Text>
 );
