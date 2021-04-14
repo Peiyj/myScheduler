@@ -1,39 +1,25 @@
-import React, {useState} from 'react';
 import Course from './Course';
-import { StyleSheet, View,  ScrollView } from 'react-native';
-import TermSelector from './TermSelector'
+import termSelector from './termSelector';
+import CourseSelector from './CourseSelector';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import TermSelector from './termSelector';
+import { getCourseNumber, getCourseTerm, hasConflict, terms } from '../utils/course.js';
 
-const termMap = {F : 'Fall', W : 'Winter', S : 'Spring'} // map so that we know what terms
 
-const terms = Object.values(termMap);
-
-const getCourseTerm = course => (
-  termMap[course.id.charAt(0)]
-)
-
-const TermButton = ({term, setSelectedTerm, isActive}) => (
-  <TouchableOpacity style={styles[isActive ? 'termButtonActive' : 'termButton']} 
-      onPress={() => setSelectedTerm(term)}>
-    <Text style={styles.termText}>{term}</Text>
-  </TouchableOpacity>
-)
+const termMap = {F: 'Fall', W: 'Winter', S: 'Spring'};
 
 const CourseList = ({courses}) => {
-  const [selectedTerm, setSelectedTerm] = useState('Fall');
+    const [selectedTerm, setSelectedTerm] = useState('Fall');
+    const termCourses = courses.filter(course => selectedTerm === getCourseTerm(course));
+    return (
+        <ScrollView>
+            <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
+            <CourseSelector courses={termCourses} />
+        </ScrollView>
+    );
+};
 
-  const termCourses = courses.filter(course => selectedTerm === getCourseTerm(course));
-
-  return (
-    <View>
-      <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm}/>
-      <ScrollView>
-        <View style={styles.courseList}>
-          { termCourses.map(course => <Course key={course.id} course={course} />) }
-        </View>
-      </ScrollView>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   courseList: {
@@ -41,6 +27,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'space-between'
-  }});
+    justifyContent: 'space-between',
+  },
+});
+
 export default CourseList;
