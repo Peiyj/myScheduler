@@ -9,17 +9,16 @@ import { getCourseNumber, getCourseTerm, hasConflict, terms } from '../utils/cou
 
 const termMap = {F: 'Fall', W: 'Winter', S: 'Spring'};
 
-const CourseList = ({courses}) => {
+const CourseList = ({courses, view}) => {
     const [selectedTerm, setSelectedTerm] = useState('Fall');
     const termCourses = courses.filter(course => selectedTerm === getCourseTerm(course));
     return (
         <ScrollView>
             <TermSelector terms={terms} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
-            <CourseSelector courses={termCourses} />
+            <CourseSelector courses={termCourses} view={view}/>
         </ScrollView>
     );
 };
-
 
 const styles = StyleSheet.create({
   courseList: {
@@ -30,5 +29,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 });
-
 export default CourseList;
