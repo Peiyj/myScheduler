@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import CourseList from '../components/CourseList';
 import UserContext from '../UserContext';
-import { firebase } from '../firebase';
+import { firebase } from '../utils/firebase';
 
 const db = firebase.database().ref();
 
